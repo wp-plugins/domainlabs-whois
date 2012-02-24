@@ -24,15 +24,9 @@ DomainLabs whois plugin; domain and Ip address whois lookup allows you on with W
 
 == Screenshots ==
 
-1. This screen shot Settings -> Domain Whois corresponds to screenshot-1.png
-2. This screen shot widget corresponds to screenshot-2.png
-3. This screen shot whois results page corresponds to screenshot-3.png
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
+1. This screen shot Settings -> Domain Whois
+2. This screen shot widget
+3. This screen shot whois results page
 
 == Frequently Asked Questions ==
 
@@ -45,12 +39,3 @@ Nobody asked anything yet
 == Upgrade Notice ==
 
 * First version published
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Pretty interface of widget 
-2. Some custom options
-
-`<?php code(); // goes in backticks ?>`
