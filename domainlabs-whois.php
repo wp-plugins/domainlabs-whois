@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Domainlabs_Whois
- * @version 1.0
+ * @version 1.0.1
  */
 /*
 Plugin Name: Domainlabs Domain Whois
 Plugin URI: http://wordpress.org/extend/plugins/domainlabs-whois/
 Description: DomainLabs Domain Whois Plugin.
 Author: Bahri Meriç CANLI
-Version: 1.0
+Version: 1.0.1
 Author URI: http://www.domainlabs.eu/
 */
  
@@ -99,7 +99,18 @@ if (!class_exists("DomainLabsWhois")) {
 				$server["host"] = "whois.biz";
 				$server["notfound"] = "Not found";
 				break;									
-								
+			case "us":	
+				$server["host"] = "whois.nic.us";
+				$server["notfound"] = "Not found:";
+				break;		
+			case "uk":	
+				$server["host"] = "whois.nic.uk";
+				$server["notfound"] = "No match for";
+				break;	
+			case "ch":	
+				$server["host"] = "whois.nic.ch";
+				$server["notfound"] = "We do not have an entry in our database matching your query.";
+				break;		
 			default:	
 				$server["host"] = "whois.ripe.net";
 				$server["notfound"] = "No entries found";

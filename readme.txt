@@ -4,7 +4,7 @@ Donate link: http://links.bahri.info/donation
 Tags: domain, whois, widget
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 DomainLabs Domain Whois Plugin for Wordpress 
 
@@ -34,8 +34,14 @@ Nobody asked anything yet
 
 == Changelog ==
 
+1.0.1
+
+* .us, .uk, .ch support has been added
+
+1.0
+
 * First version published
 
 == Upgrade Notice ==
 
-* First version published
+* An optional update. You can look at Changelog
