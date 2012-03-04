@@ -27,6 +27,7 @@ if (!class_exists("DomainLabsWhois")) {
 				<input id="wpwhoisdomain" name="domain" type="text" class="whois-text" value="'.$domain.'" /> 
 				<input name="lookup" type="submit" value="Whois" class="whois-submit" />
 			</form> 
+			</br>
 		</div>
 		';
 
