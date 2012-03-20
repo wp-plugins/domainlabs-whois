@@ -1,7 +1,7 @@
 === DomainLabs Whois ===
 Contributors: bmericc
 Donate link: http://links.bahri.info/donation
-Tags: domain, whois, widget, ip
+Tags: whois, domain, search, whois search, wp whois, wordpress whois, domain whois, whois plugin, wordpress whois plugin, ip whois
 Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 1.0.2
