@@ -1,10 +1,10 @@
 === DomainLabs Whois ===
 Contributors: bmericc
 Donate link: http://links.bahri.info/donation
-Tags: domain, whois, widget
+Tags: domain, whois, widget, ip
 Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 1.0.1
+Tested up to: 3.3.1
+Stable tag: 1.0.2
 
 DomainLabs Domain Whois Plugin for Wordpress 
 
@@ -33,6 +33,11 @@ DomainLabs whois plugin; domain and Ip address whois lookup allows you on with W
 Nobody asked anything yet
 
 == Changelog ==
+
+1.0.2
+
+* .tr whois encoding(iso8859-9) problem has been added
+* added support for querying whois server domain names are not on our list
 
 1.0.1
 

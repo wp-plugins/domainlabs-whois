@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Domainlabs_Whois
- * @version 1.0.1
+ * @version 1.0.2
  */
 /*
 Plugin Name: Domainlabs Domain Whois
 Plugin URI: http://wordpress.org/extend/plugins/domainlabs-whois/
 Description: DomainLabs Domain Whois Plugin.
 Author: Bahri Meriç CANLI
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://www.domainlabs.eu/
 */
  
@@ -27,7 +27,7 @@ if (!class_exists("DomainLabsWhois")) {
 				<input id="wpwhoisdomain" name="domain" type="text" class="whois-text" value="'.$domain.'" /> 
 				<input name="lookup" type="submit" value="Whois" class="whois-submit" />
 			</form> 
-			</br>
+</br>
 		</div>
 		';
 
@@ -57,8 +57,11 @@ if (!class_exists("DomainLabsWhois")) {
 /*********************************************************************/  	 		
 	function get_whois_server_detail($domain) {
 		
-		$extension = substr($domain, strrpos($domain, ".")+1);
+		if($this->is_ipaddress($domain)) $extension = "ipaddress";
+		else $extension = substr($domain, strrpos($domain, ".")+1);
 		
+		
+
 		switch ($extension) {
 			case "tr":
 				$server["host"] = "whois.nic.tr";
@@ -112,9 +115,14 @@ if (!class_exists("DomainLabsWhois")) {
 				$server["host"] = "whois.nic.ch";
 				$server["notfound"] = "We do not have an entry in our database matching your query.";
 				break;		
-			default:	
+			case "ipaddress":
 				$server["host"] = "whois.ripe.net";
 				$server["notfound"] = "No entries found";
+				break;
+			default:	
+				$server["host"] = "whois.iana.org";
+				$server["notfound"] = "this server does not have
+% any data for";
 				break;		
 		}
 		
@@ -124,7 +132,7 @@ if (!class_exists("DomainLabsWhois")) {
 	function whois($url,$domain_ip){
 		$sock = fsockopen($url, 43, $errno, $errstr);
 	    if (!$sock) exit("$errno($errstr)");
-	   	else {
+	   else {
 	     fputs ($sock, $domain_ip."\r\n");
 	     $text = "";
 	     while (!feof($sock))
@@ -132,23 +140,87 @@ if (!class_exists("DomainLabsWhois")) {
 	       $text .= fgets ($sock, 128)."<br>";
 	     }
 	    fclose ($sock);
-	    $pattern = "|ReferralServer: whois://([^\n<:]+)|i";
-	    preg_match($pattern, $text, $out);
-	    if(!empty($out[1])) return whois($out[1], $domain_ip);
-	    else return $text;
 	    }
+		
+	
+	    $text = $this->toUtf8($text);
+
+	    $pattern = "|Whois Server: ([^\n<:]+)|i";
+	    preg_match($pattern, $text, $out);
+
+	    $pattern2 = "|whois: ([^\n<:]+)|i";
+	    preg_match($pattern2, $text, $out2);
+
+	    if(!empty($out[1])) 
+		$text.= $this->whois($out[1], $domain_ip);
+	    elseif(!empty($out2[1])) 
+		$text = $this->whois(trim($out2[1]), $domain_ip);
+	    
+	return $text;    
   	}
-  	
-  	
+
+
+    function is_ipaddress($string) {
+
+   if (preg_match(
+'/^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/',
+   $string)) return true;
+else return false;
+
+    }	  	
+
+    function is_utf8($string) { 
+       
+        // From http://w3.org/International/questions/qa-forms-utf-8.html 
+        return preg_match('%^(?: 
+              [\x09\x0A\x0D\x20-\x7E]            # ASCII 
+            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte 
+            |  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs 
+            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte 
+            |  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates 
+            |  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3 
+            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15 
+            |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16 
+        )*$%xs', $string); 
+       
+    } 
+
+
+
+	function toUtf8($content) { 
+	   if(!$this->is_utf8($content)) {
+  /// for iso8859-9
+   		
+	$content= str_replace ( array ("İ", "\u0130", "\xDD", "İ" ), "İ", $content);
+	$content= str_replace ( array ("ı", "\u0131", "\xFD", "ı" ), "ı", $content);
+	$content= str_replace ( array ("Ğ", "\u011e", "\xD0", "Ğ" ), "Ğ", $content);
+	$content= str_replace ( array ("ğ", "\u011f", "\xF0", "ğ" ), "ğ", $content);
+	$content= str_replace ( array ("Ü", "\u00dc", "\xDC", "Ü" ), "Ü", $content);
+	$content= str_replace ( array ("ü", "\u00fc", "\xFC", "ü" ), "ü", $content);
+	$content= str_replace ( array ("Ş", "\u015e", "\xDE", "Ş" ), "Ş", $content);
+	$content= str_replace ( array ("ş", "\u015f", "\xFE", "ş" ), "ş", $content);
+	$content= str_replace ( array ("Ö", "\u00d6", "\xD6", "Ö" ), "Ö", $content);
+	$content= str_replace ( array ("ö", "\u00f6", "\xF6", "ö" ), "ö", $content);
+	$content= str_replace ( array ("Ç", "\u00c7", "\xC7", "Ç" ), "Ç", $content);
+	$content= str_replace ( array ("ç", "\u00e7", "\xE7", "ç" ), "ç", $content);
+
+
+	   }
+	
+	return $content;
+	}   	
   	
  	function whoisResults($domain) {
 		$serverDetail = $this->get_whois_server_detail($domain);
 		$answer = $this->whois($serverDetail["host"],$domain);
+		
 		if (strpos ($answer, $serverDetail["notfound"])==FALSE){
 				return $answer;	
 		}
 		else return "Domain not found";
 	} 	
+
+
   		
 /*********************************************************************/  	
 
