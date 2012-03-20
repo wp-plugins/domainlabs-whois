@@ -36,7 +36,7 @@ Nobody asked anything yet
 
 1.0.2
 
-* .tr whois encoding(iso8859-9) problem has been added
+* .tr whois encoding(iso8859-9) problem has been fixed
 * added support for querying whois server domain names are not on our list
 
 1.0.1
