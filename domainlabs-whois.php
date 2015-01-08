@@ -1,15 +1,15 @@
 <?php
 /**
  * @package Domainlabs_Whois
- * @version 1.0.2
+ * @version 1.0.3
  */
 /*
 Plugin Name: Domainlabs Domain Whois
 Plugin URI: http://wordpress.org/extend/plugins/domainlabs-whois/
 Description: DomainLabs Domain Whois Plugin.
 Author: Bahri Meriç CANLI
-Version: 1.0.2
-Author URI: http://www.domainlabs.eu/
+Version: 1.0.3
+Author URI: http://www.bahri.info/
 */
  
 if (!class_exists("DomainLabsWhois")) {
