@@ -1,0 +1,32 @@
+.whois-text {
+    background-color: #FFFFFF;
+    border: 2px solid #D6D6D6;
+    border-radius: 6px 6px 6px 6px;
+    color: #939393;
+    display: block;
+    font-family: Tahoma,Arial,verdana;
+    font-size: 12px;
+    margin: 0 0 10px;
+    padding: 7px 5px;
+    width: 260px;
+}
+
+.whois-submit {
+    border: 1px solid #BDBDBD;
+    font-size: 12px;
+    padding: 4px 10px;
+    background-color: #BCBCBC;
+    background-image: url("bg-button2.gif");
+    background-repeat: repeat-x;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF !important;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.whois-results {
+
+   background-color: #FEFEFE;
+   color: #000000;
+
+}
